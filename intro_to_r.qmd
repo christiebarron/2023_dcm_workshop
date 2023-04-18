@@ -1,0 +1,40 @@
+---
+title: "intro_to_r"
+format: html
+editor: visual
+---
+
+### R Project Organization
+
+Where possible, this workshop will follow best practices for project workflows. While the specifics will vary between people and between projects, it is useful to follow certain principles. See [Wickham & Grolemund (2023)](https://r4ds.hadley.nz/workflow-scripts.html) for an in-depth discussion.
+
+We will start by creating an R project to make it possible to use relative paths:
+
+-   Click the "File" menu button, then "New Project".
+-   Click "New Directory" if you don't have a folder already. Otherwise click "Existing Directory".
+-   Click "New Project".
+-   If required, type in the name of the directory to store your project, e.g. "my_dcm_project".
+-   Click the "Create Project" button.
+-   Use a file explorer to double click on the .Rproj file. This will open RStudio and start your R session in the same directory as the .Rproj file
+
+Next, we will create folders to store raw data, R scripts, clean data, and outputs (e.g., figures):
+
+```{r add folders}
+#check working directory 
+getwd() #stands for get Working Directory. Check it is where you expect it to be.
+
+#add a raw_data folder if not already there
+if (!file.exists("raw_data")) dir.create("raw_data")
+
+#add a clean_data folder if not already there
+if (!file.exists("clean_data")) dir.create("clean_data")
+
+#add an scripts folder if not already there
+if (!file.exists("scripts")) dir.create("scripts")
+
+#add an output folder if not already there
+if (!file.exists("output")) dir.create("output")
+
+#for documentation, type: 
+#?file.exists()
+```

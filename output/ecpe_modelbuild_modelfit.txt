@@ -1,0 +1,49 @@
+[1] "ecpe analysis2023-04-17 19:37:17"
+[1] "##### Empirical Q-Matrix Evaluation #######"
+[1] "Wald"
+[1] "suggested revisions"
+[1] "suggested q-matrix (also saved in clean_data"
+$item_vec
+ [1] "item_1"  "item_2"  "item_3"  "item_4"  "item_5"  "item_6"  "item_7"  "item_8"  "item_9"  "item_10" "item_11" "item_12" "item_13" "item_14"
+[15] "item_15" "item_16" "item_17" "item_18" "item_19" "item_20" "item_21" "item_22" "item_23" "item_24" "item_25" "item_26" "item_27" "item_28"
+
+$A1
+ [1] 1 0 1 0 0 0 1 0 1 1 1 1 1 1 0 1 0 0 0 1 1 0 0 0 1 0 1 0
+
+$A2
+ [1] 1 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0 0 0
+
+$A3
+ [1] 0 0 1 1 1 1 1 0 1 0 1 1 1 0 1 1 1 1 1 1 1 1 0 0 0 1 0 1
+
+[1] "######### Model Calibration #######"
+[1] "calibration method = Wald"
+[1] "######### Model Fit ###########"
+[1] "test-level fit"
+Test-level Model Fit Evaluation
+
+Relative fit statistics: 
+ -2 log likelihood =  85397.88  ( number of parameters =  73 )
+ AIC  =  85543.88  BIC =  85980.43 
+ CAIC =  86053.43  SABIC =  85748.48 
+
+Absolute fit statistics: 
+ M2 =  527.4839  df =  333  p =  0 
+ RMSEA2 =  0.0141  with  90 % CI: [ 0.0118 , 0.0164 ]
+ SRMSR =  0.0302Summary of Item Fit Analysis
+
+Call:
+itemfit(GDINA.obj = ecpe_est3)
+
+                        mean[stats] max[stats] max[z.stats] p-value adj.p-value
+Proportion correct           0.0008     0.0028       0.3250  0.7452           1
+Transformed correlation      0.0241     0.1003       5.4214  0.0000           0
+Log odds ratio               0.1278     0.4631       5.5864  0.0000           0
+Note: p-value and adj.p-value are associated with max[z.stats].
+      adj.p-values are based on the holm method.[1] "comparision of all models tested"
+
+Information Criteria and Likelihood Ratio Test
+
+
+Notes: In LR tests, models were tested against ecpe_est2 
+       LR test(s) do NOT check whether models are nested or not.[1] ""
