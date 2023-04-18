@@ -22,19 +22,19 @@ This workshop is a synthesis of the phenomenal work by academics in the field of
 
 -   Conceptual foundations of DCM
     -   Conceptual ideas of DCM models
-    -   Statistical characteristics of DCM models
--   Introductory DCM
+-   Running DCM in R
     -   Reading in data and q-matrix
-    -   Running DCM in R
-    -   Interpreting parameter estimates of DCM models
-    -   saving relevant output
--   Novel Advancements in DCM
-    -   Generalized Models
-    -   Item-specific modeling
-    -   Classification reliability
-    -   Empirical q-matrix development
--   Next Steps
-    -   Advanced DCM applications (Hierarchical DCM, Longitudinal DCM, Polytomous DCM)
+    -   Empirical q-matrix validation
+    -   Measurement model calibration
+    -   Model fit evaluation
+    -   Item diagnosticity
+    -   Classification Reliability
+    -   Parameter Estimate Interpretation
+    -   Saving and Reporting DCM
+-   Wrap-up and Next Steps
+    -   Advanced Applications of DCM
+    -   Summary
+    -   Resources
 
 ### Learning Goals
 
@@ -48,6 +48,8 @@ Upon leaving this workshop, you will be able to:
 
 -   Investigate model diagnostics using several statistical procedures
 
+-   Save DCM analysis results
+
 ## Conceptual Foundations of DCM
 
 Characteristics of DCM include:
@@ -55,10 +57,6 @@ Characteristics of DCM include:
 -   Criterion referenced
 
 -   Categorical Latent Variable predicting/causing performance on indicators
-
-### DCM Terminology
-
--   
 
 ### Continuous Latent Variable
 
@@ -90,17 +88,17 @@ Characteristics of DCM include:
 
 -   Item responses can then be used to place players into groups based on their status as proficient or non-proficient on the multiple attributes:
 
-+------------+----------------+----------------+----------------+----------------+
-| Player     | Technique      | Endurance      | Agility        | Strategy       |
-+============+:==============:+:==============:+:==============:+:==============:+
-| Christie   | Non-proficient | Non-proficient | Non-proficient | Non-proficient |
-+------------+----------------+----------------+----------------+----------------+
-| Liam       | Non-proficient | Proficient     | Non-proficient | Non-proficient |
-+------------+----------------+----------------+----------------+----------------+
-| Eunice     | Proficient     | Proficient     | Proficient     | Proficient     |
-+------------+----------------+----------------+----------------+----------------+
-| Serena     | Proficient     | Proficient     | Proficient     | Proficient     |
-+------------+----------------+----------------+----------------+----------------+
++-------------+----------------+----------------+----------------+----------------+
+| Player      | Technique      | Endurance      | Agility        | Strategy       |
++=============+:==============:+:==============:+:==============:+:==============:+
+| Christie    | Non-proficient | Non-proficient | Non-proficient | Non-proficient |
++-------------+----------------+----------------+----------------+----------------+
+| Liam        | Non-proficient | Proficient     | Non-proficient | Non-proficient |
++-------------+----------------+----------------+----------------+----------------+
+| Eunice      | Proficient     | Proficient     | Proficient     | Proficient     |
++-------------+----------------+----------------+----------------+----------------+
+| Serena      | Proficient     | Proficient     | Proficient     | Proficient     |
++-------------+----------------+----------------+----------------+----------------+
 
 -   We now have a better sense of the skills different players have mastered. We see Liam is lower than Eunice because he isn't proficient in Technique or Strategy yet, and Christie hasn't become proficient in anything yet.
 
@@ -116,13 +114,13 @@ Characteristics of DCM include:
 
 -   Perforamnce is based on multiple discrete latent variables (attributes) -- similar to Multidimeinsiaonal IRT.
 
--   Discrite var result in multi-faceted classification OF LEARNERS ORGANIZED INTO LATENT CALSSES (UNLIKE MULTIDIMENSIONAL irt)
+-   Rather than theta estimates or factor scores, the major output in a DCM is a multi-faceted classification of learners into latent classes.
 
--   Item designed to measure 1+ latent attribues; exact design captured in Q-matrix w/ 0s and 1s (similar to CFA)
+-   DCM items are designed to measure 1+ latent attributes. A Q-matrix is used to specify which attributes are required for a given item.
 
--   Response prob are class-specific and depend on attrib that mastered in partic class (probabilities depend on model)
+-   Like IRT and CFA, the observed response to an item is expected to depend on the latent construct. Separate response probabilities are expected for every latent class.
 
--   Reliability estimates for discrete score variabales that yield the classifications can still be computed -- diff formula from IRT though
+-   Reliability estimates for discrete score variabales that yield the classifications can still be computed. They are DCM-specific formulas though
 
 ### DCM inputs and Outputs
 
@@ -142,7 +140,7 @@ Outputs:
 
 5.  Person statistics: group level
 
-**==NOTE TO SELF MAYBE JUST USE OWN DATA HERE** ==![](fig/output-indiv-person.png) (reprinted from [@carragher2019])
+![reprinted](fig/output-indiv-person.png){alt="reprinted"} (reprinted from [@carragher2019])
 
 ### Continuous versus Categorical models
 
@@ -157,45 +155,37 @@ While a diagnostic classification model with 2 attributes would look like: ![](f
 
     ![](fig/acronym-meme.jpeg)
 
-Each model has certain conceptual properties:
+Several resources have provided thorough descriptions of DCM models [@carragher2019; @ma2019; @ravand2020]. They describe each model as having certain conceptual properties:
 
-+-----------+---------------+----------------------------------+----------------------+----------------+
-| Model     | Link Function | Outcome                          | Attribute Assumption | Strategy       |
-+===========+:=============:+:================================:+:====================:+:==============:+
-| DINA      | Identity Link | Response Probability             | Non-proficient       | Non-proficient |
-+-----------+---------------+----------------------------------+----------------------+----------------+
-| DINO      | Identity Link | Response Probability             | Non-proficient       | Non-proficient |
-+-----------+---------------+----------------------------------+----------------------+----------------+
-| A-CDM     | Identity Link | Response Probability             | Proficient           | Proficient     |
-+-----------+---------------+----------------------------------+----------------------+----------------+
-| LLM/C-RUM | Logit Link    | Log-odds of Response Probability | Proficient           | Proficient     |
-+-----------+---------------+----------------------------------+----------------------+----------------+
-| R-RUM     | Log Link      | Log of Response Probability      | Proficient           | Proficient     |
-+-----------+---------------+----------------------------------+----------------------+----------------+
+| Model     | Attribute Assumption                         | Specific vs General |
+|-----------|----------------------------------------------|---------------------|
+| DINA      | Non-Compensatory                             | Specific            |
+| DINO      | Compensatory                                 | Specific            |
+| A-CDM     | Additive                                     | Specific            |
+| LLM/C-RUM | Additive                                     | Specific            |
+| R-RUM     | Additive                                     | Specific            |
+| G-DINA    | Compensatory, Non-Compensatory, and Additive | General             |
 
-They also each have statistical properties:
+Each of these models also has statistical properties:
 
-| Model     | Link Function |             Outcome              |
-|-----------|:-------------:|:--------------------------------:|
-| DINA      | Identity Link |       Response Probability       |
-| DINO      | Identity Link |       Response Probability       |
-| A-CDM     | Identity Link |       Response Probability       |
-| LLM/C-RUM |  Logit Link   | Log-odds of Response Probability |
-| R-RUM     |   Log Link    |   Log of Response Probability    |
+| Model     | Link Function |             Outcome              | Parameters Estimated                                       |
+|-----------|:-------------:|:--------------------------------:|------------------------------------------------------------|
+| DINA      | Identity Link |       Response Probability       | intercept (guessing), highest-order interaction (slipping) |
+| DINO      | Identity Link |       Response Probability       | intercept (guessing), single main effect (slipping)        |
+| A-CDM     | Identity Link |       Response Probability       | intercept, main effects                                    |
+| LLM/C-RUM |  Logit Link   | Log-odds of Response Probability | intercept, main effects                                    |
+| R-RUM     |   Log Link    |   Log of Response Probability    | intercept, main effects                                    |
+| G-DINA    | All as needed |              Varies              | intercept, main effects, all interactions                  |
 
 #### Plots of Restricted DCM models
 
-==add graphs for each of these==
+Correspondingly, each model has a prototypical item response function. DINA and DINO models look like the following:
 
--   DINA is characterized by
+![](fig/dina_dino.png)
 
--   DINO is characteried by
+A-CDM, LLM, C-RUM, and R-RUM are characterized by mastery of attributes combining in an additive manner as shown below. They differ in the link function. A-CDM is shown, reprinted from [@ma2019]:
 
--   A-CDM is characterized by
-
--   LLM/C-RUM is characterized by
-
--   R-RUM is characterized by
+![](fig/acdm.png)
 
 ### General DCM Models
 
@@ -211,9 +201,9 @@ They also each have statistical properties:
 
 ### General DCM Model: Conceptual Example
 
--   Imagine we want to run multiple regression model with three dichotomous indicator variables (i.e., dummy-coded).
+Imagine we want to run an ANOVA with three dichotomous indicator variables and a continuous outcome.
 
-    -   Main effects model would have an intercept, main effect 1, main effect 2, main effect 3.
+-   Main effects model would have an intercept, main effect 1, main effect 2, main effect 3.
 
     -   Two-way interaction model would have intercept, main effect 1, main effect 2, main effect 3, 1\*2, 2\*3, 1\*3
 
@@ -221,7 +211,7 @@ They also each have statistical properties:
 
 -   Conceptually, General DCMs are the highest-order interaction model. If the interaction is 0, it simplifies down to simpler model.
 
-    -   We value parsimony, and don't want to estimate parameters that aren't necessary. So if the interaction is 0, we want to use a simpler model. This will make more sense later.
+    -   We value parsimony, and want to avoid overfitting. So if the interaction is 0, we want to use a simpler model. We'll describe further in `Step 2: Model Calibration` of this workshop.
 
     -   For an accessible description of the statistics behind DCM models, see [@ma2019] and [@carragher2019].
 
@@ -233,59 +223,49 @@ They also each have statistical properties:
 
 There are several fantastic R packages for DCM. Examples include:
 
-+--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| R Package                                                                | Description                                                                                                 | Citation                 |
-+==========================================================================+:===========================================================================================================:+:========================:+
-| [GDINA](https://wenchao-ma.github.io/GDINA/index.html)                   | Model estimation & fit, q-matrix estimation & validation, and more                                          | [@ma2020 @delatorre2019] |
-+--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| [CDM](https://cran.r-project.org/web/packages/CDM/CDM.pdf)               | Estimation, q-matrix validation, fit, and more                                                              | [@george2016]            |
-+--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| [cdmTools](https://cran.r-project.org/web//packages/cdmTools/index.html) | Estimate small-sample DCM models, empirical q-matrix estimation, empirical number of attributes calculation | Proficient               |
-+--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
-| Serena                                                                   | Proficient                                                                                                  | Proficient               |
-+--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+--------------------------+
++--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| R Package                                                                | Description                                                                                                 | Citation                                                            |
++==========================================================================+:===========================================================================================================:+:===================================================================:+
+| [GDINA](https://wenchao-ma.github.io/GDINA/index.html)                   | Model estimation & fit, q-matrix estimation & validation, and more                                          | [@ma2020 @delatorre2019]                                            |
++--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| [CDM](https://cran.r-project.org/web/packages/CDM/CDM.pdf)               | Estimation, q-matrix validation, fit, and more                                                              | [@george2016]                                                       |
++--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
+| [cdmTools](https://cran.r-project.org/web//packages/cdmTools/index.html) | Estimate small-sample DCM models, empirical q-matrix estimation, empirical number of attributes calculation | [link](https://cran.r-project.org/web/packages/cdmTools/index.html) |
++--------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+
 
-Many other software options too. Mplus can handle DCM with a lot of tedious manual coding, as can SAS. The [tdcm r package]() is great with longitudinal DCM.
-
-==to remove==: cdmTools: Empirically estimate (with the discrete factor loading method) and validate (with the Hull method) the Q-matrix. Empirically assess the number of attributes in DCM applications using parallel analysis and the model-fit comparison approach. Estimate the general nonparametric classification method (GNPC). Estimate the restricted DINA model (R-DINA), a novel one-parameter model that is suitable for small-scale assessments, providing accurate attribute profile classifications and reliability estimates.
+Many other software options are available. Mplus can handle DCM with a lot of tedious manual coding, as can SAS. The [tdcm r package]() is great with longitudinal DCM. Many others I haven't mentioned are also useful.
 
 ### Dataset used in this workshop
 
 -   This workshop follows in using an open-source dataset widely available in many DCM R packages. The dataset is the grammar session of the Examination for the Certificate of Proficiency in English (ECPE).
 
-George and Robitzsch (@george2015) provide the following details about ECPE:
+George and Robitzsch (@george2015) provide the following example item from the ECPE:
 
-Example item:
+> Mary had to lean \_\_ the counter to open the window.
+>
+> a)  above
+> b)  over
+> c)  after
+> d)  around
 
-Mary had to lean \_\_ the counter to open the window.
+The following table---reprinted from (@george2015 p. 191)\--provides a description of the three attributes in the current dataset:
 
-a)  above
-b)  over
-c)  after
-d)  around
-
-==fix this table ==
-
-+-----------+----------------+--------------------------------------------------------------------------------------+----------------+----------------+
-| Attribute | Description    | Parameter                                                                            | Skill          | Description    |
-+===========+:==============:+:====================================================================================:+:==============:+:==============:+
-| α1        | Non-proficient | Non-proficient                                                                       | Non-proficient | Non-proficient |
-+-----------+----------------+--------------------------------------------------------------------------------------+----------------+----------------+
-| α1        |                | word formation; combination of words into larger units such as phrases and sentences | Non-proficient | Non-proficient |
-+-----------+----------------+--------------------------------------------------------------------------------------+----------------+----------------+
-| Eunice    | Proficient     | Proficient                                                                           | Proficient     | Proficient     |
-+-----------+----------------+--------------------------------------------------------------------------------------+----------------+----------------+
-| Serena    | Proficient     | Proficient                                                                           | Proficient     | Proficient     |
-+-----------+----------------+--------------------------------------------------------------------------------------+----------------+----------------+
-
-|  \| \| \| \| \|-----------\|:-------------:\|:--------------------------------:\| \|α2 \| cohesive rules \| grammatical and lexical linking within a text or sentence \| \| α3 \| lexical rules \| modification of argument structures of lexical text elements (i. e., verbs and declensions) \| reprinted from (@george2015 p. 191)
++---------------------+-----------------------+----------------------------------------------------------------------------------------------+
+| Attribute Parameter | Attribute Name        | Attribute Description                                                                        |
++=====================+:=====================:+:============================================================================================:+
+| α1                  | morphosyntactic rules | word formation; combination of words into larger units such as phrases and sentences         |
++---------------------+-----------------------+----------------------------------------------------------------------------------------------+
+| α2                  | cohesive rules        | grammatical and lexical linking within a text or sentence                                    |
++---------------------+-----------------------+----------------------------------------------------------------------------------------------+
+| α3                  | lexical rules         | modification of argument structures of lexical text elements (i. e., verbs and declensions)  |
++---------------------+-----------------------+----------------------------------------------------------------------------------------------+
 
 ### Install Dependencies
 
 ```{r data}
 #a shortcut for loading and/or installing all required packages
 if (!require(pacman)) install.packages("pacman")
-pacman::p_load(janitor, tidyverse, GDINA)
+pacman::p_load(janitor, tidyverse, GDINA, psych, psychometric)
 ```
 
 ## Running DCM in R with ECPE Data
@@ -444,7 +424,7 @@ ecpe_qval <- Qval(ecpe_est, method = "Wald")
 ecpe_qval
 ```
 
-To my knowledge, it is still unclear which option of the above are best. Perhaps more useful is visual inspection of a MESA plot. ![a literal mesa plot](fig/mesa.jpeg). In (statistical) mesa plots, the x-axis represents the q-vectors (which attributes are hypothesized to be required in answering a given item) and the y-axis corresponding to their PVAF values. Kind of like a scree plot, the q-vector on the edge of the "mesa" can be considered the correct q-vector for the item. In the GDINA package, the red dot in these show the q-vector that was originally hypothesized.
+To my knowledge, it is still unclear which option of the above are best. Perhaps more useful is visual inspection of a MESA plot. ![a literal mesa plot](fig/mesa.jpeg){alt="a literal mesa plot"}. In (statistical) mesa plots, the x-axis represents the q-vectors (which attributes are hypothesized to be required in answering a given item) and the y-axis corresponding to their PVAF values. Kind of like a scree plot, the q-vector on the edge of the "mesa" can be considered the correct q-vector for the item. In the GDINA package, the red dot in these show the q-vector that was originally hypothesized.
 
 ```{r}
 #Create a MESA plot
@@ -551,49 +531,49 @@ One the empirical q-matrix and DCM measurement models have been selected, model 
 
 As described by [@shi2021], the `GDINA` R package has several options for investigating model fit:
 
-+-------------+-----------------+------------------------------+---------------------------------------+
-| Type of fit | Level of fit    | Function                     | Statistics Provided                   |
-+=============+:===============:+:============================:+:=====================================:+
-| Absolute    | test level      | `modelfit()` and `itemfit()` | M2, RMSEA2, SRMSR, MaxAD.r, MaxAD.LOR |
-+-------------+-----------------+------------------------------+---------------------------------------+
-| Relative    | test level      | `modelfit()` and `anova()`   | AIC, BIC, CAIC, SABIC, LR test        |
-+-------------+-----------------+------------------------------+---------------------------------------+
-| Absolute    | item level      | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
-+-------------+-----------------+------------------------------+---------------------------------------+
-| Absolute    | item-pair level | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
-+-------------+-----------------+------------------------------+---------------------------------------+
-| Relative    | item level      | `modelcomp()`                | Wald test, LR test                    |
-+-------------+-----------------+------------------------------+---------------------------------------+
++---------------+-----------------+------------------------------+---------------------------------------+
+| Type of fit   | Level of fit    | Function                     | Statistics Provided                   |
++===============+:===============:+:============================:+:=====================================:+
+| Absolute      | test level      | `modelfit()` and `itemfit()` | M2, RMSEA2, SRMSR, MaxAD.r, MaxAD.LOR |
++---------------+-----------------+------------------------------+---------------------------------------+
+| Relative      | test level      | `modelfit()` and `anova()`   | AIC, BIC, CAIC, SABIC, LR test        |
++---------------+-----------------+------------------------------+---------------------------------------+
+| Absolute      | item level      | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
++---------------+-----------------+------------------------------+---------------------------------------+
+| Absolute      | item-pair level | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
++---------------+-----------------+------------------------------+---------------------------------------+
+| Relative      | item level      | `modelcomp()`                | Wald test, LR test                    |
++---------------+-----------------+------------------------------+---------------------------------------+
 
 #### Investigating test-level fit
 
 There are a variety of statistics to assess test-level absolute fit. The table below provides a brief summary of interpretation.
 
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Statistic | Good Fit Cutpoint                                                                           | Description/Context                                                                                                                                                  |
-+===========+=============================================================================================+======================================================================================================================================================================+
-| M2        | `P > .05`: good fit.                                                                        | Compare bi/univariate distributions of observations to model predictions. Similar to chi-square in SEM. Like chi-square, often overpowered and thus not informative. |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | A significant value indicates model predictions significantly depart from the observed data |                                                                                                                                                                      |
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| RMSEA2    | `< .03`: excellent fit                                                                      | Limited-information RMSEA. Can be used as an effect size measure                                                                                                     |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | `.03 - .045`: good fit                                                                      |                                                                                                                                                                      |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | `> .045`: poor fit                                                                          |                                                                                                                                                                      |
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| SRMSR     | `< .05`: good fit                                                                           | Standardized root mean square residual. Can be used as an effect size measure                                                                                        |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | `> .05`: poor fit                                                                           |                                                                                                                                                                      |
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| MaxAD.r   | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted Fisher transformed correlations (MaxAD.r). Aggregated item-level fit.                                 |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| MaxAD.LOR | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted log odds ratios (MaxAD.LOR). Aggregated item-level fit.                                               |
-|           |                                                                                             |                                                                                                                                                                      |
-|           | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
-+-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Statistic     | Good Fit Cutpoint                                                                           | Description/Context                                                                                                                                                  |
++===============+=============================================================================================+======================================================================================================================================================================+
+| M2            | `P > .05`: good fit.                                                                        | Compare bi/univariate distributions of observations to model predictions. Similar to chi-square in SEM. Like chi-square, often overpowered and thus not informative. |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | A significant value indicates model predictions significantly depart from the observed data |                                                                                                                                                                      |
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| RMSEA2        | `< .03`: excellent fit                                                                      | Limited-information RMSEA. Can be used as an effect size measure                                                                                                     |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | `.03 - .045`: good fit                                                                      |                                                                                                                                                                      |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | `> .045`: poor fit                                                                          |                                                                                                                                                                      |
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| SRMSR         | `< .05`: good fit                                                                           | Standardized root mean square residual. Can be used as an effect size measure                                                                                        |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | `> .05`: poor fit                                                                           |                                                                                                                                                                      |
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| MaxAD.r       | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted Fisher transformed correlations (MaxAD.r). Aggregated item-level fit.                                 |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| MaxAD.LOR     | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted log odds ratios (MaxAD.LOR). Aggregated item-level fit.                                               |
+|               |                                                                                             |                                                                                                                                                                      |
+|               | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
++---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 == note to self: find a way to save and access the results better for this below==
 
@@ -858,7 +838,7 @@ ecpe_est3_attprev
 
 We can plot the aggregate proportions of students in each latent class:
 
-==figure out how to get this work work==
+==figure out how to get this to work==
 
 ```{r}
 plot(ecpe_est3, what = "posterior.prob")
@@ -878,7 +858,8 @@ ecpe_est3_tetcor
 
 #### Saving all results in single file
 
-We can save our entire R global environment with `save.image()`. 
+We can save our entire R global environment with `save.image()`.
+
 ```{r}
 save.image(file = "output/ecpe_dcm.Rdata")
 ```
@@ -886,7 +867,6 @@ save.image(file = "output/ecpe_dcm.Rdata")
 #### Saving individual files
 
 I'm not a fan of the above approach, as it clutters the global environment. We'll individually save various documents instead.
-
 
 First, let's start by saving various dataframes as `.csv` as "R Data Serialization" `.Rds` files. The gdina object is quite complex, so saving as a `.Rds` file is easiest. We can subsequently read in `.Rds` files with either `readRDS()` or `load()` depending on your version of R and how the data was saved.
 
@@ -940,7 +920,7 @@ ecpe_ifit3
 sink()
 
 #shouldn't be necessary, but closes all connections again. Use if you have any errors or difficulties.
-closeAllConnections()
+#closeAllConnections()
 
 ```
 
@@ -992,7 +972,7 @@ ecpe_est3_postprob
 sink()
 
 #shouldn't be necessary, but closes all connections again. Use if you have any errors or difficulties.
-closeAllConnections()
+#closeAllConnections()
 
 ```
 
@@ -1006,7 +986,7 @@ write_csv(cbind(ecpe_id, ecpe_est3_eap, ecpe_est3_mp), file = "clean_data/ecpe_d
 
 #### Publication-Ready Plots
 
-All the plots and results thus far have been useful for us, but not publication-ready. We can use the data we extracted to generate our own plots using `ggplot2` or R's base graph capabilities. 
+All the plots and results thus far have been useful for us, but not publication-ready. We can use the data we extracted to generate our own plots using `ggplot2` or R's base graph capabilities.
 
 R data visualization is a workshop all on its own, so we'll avoid that for today.
 
@@ -1014,9 +994,23 @@ R data visualization is a workshop all on its own, so we'll avoid that for today
 
 ### Summary
 
-In this workshop, we:
+In this workshop, we discussed the following:
 
-- 
+-   Conceptual foundations of DCM
+    -   Conceptual ideas of DCM models
+-   Running DCM in R
+    -   Reading in data and q-matrix
+    -   Empirical q-matrix validation
+    -   Measurement model calibration
+    -   Model fit evaluation
+    -   Item diagnosticity
+    -   Classification Reliability
+    -   Parameter Estimate Interpretation
+    -   Saving and Reporting DCM
+-   Wrap-up and Next Steps
+    -   Advanced Applications of DCM
+    -   Summary
+    -   Resources
 
 ### Advanced Applications of DCM
 
@@ -1032,16 +1026,8 @@ Wenchao Ma has a helpful [DCM reading list](https://dfcf59c426e6c585878c-4903f3e
 
 ### Homework Activities
 
-### Model Estimation and Selection
+[@ma2019] has a great list of homework activities to solidify your understanding.
 
-(1) Empirically refine the Q-matrix using the PVAF method based on .95 cutoff.
-(2) Fit the data using the G-DINA model and DINA model. Can the the DINA model fit the data as well as the G-DINA model? Use a Wald test and information criterion to evaluate it.
+### Congratulations! 
 
-### Parameter Interpretation and Usage
-
-(5) Find the estimated attribute profile for student #164. What are the estimated response probabilities for the latent classes for this student? Which attributes has the student most likely mastered or not mastered? Which attributes are we most certain about and for which attributes would we require more data to be certain for this student?
-(6) Find the estimated item parameters for item #1. What are the diagnostic properties of this item? Is this an item with desirable measurement properties and would you recommend it for inclusion "as-is", potential revision, or potential removal from the pool?
-(7) Find the estimated latent class membership probabilities for the cohort of students. What does that tell you about the skill profiles of the students?
-(8) Find the estimated attribute mastery rates for the cohort of students. How do these mastery rates align with the skill profile information from the previous question?
-(9) Create a diagnostic score report for student #20 (e.g., to provide guidance to the student for how to improve) as well as for the cohort of students overall (e.g., to provide instructional guidance to the teacher). Below are two sample templates that you can use for this purpose.
-(10) What other kinds of materials would be valuable to have to give to the student or the teacher so that the recommendations that you made in the previous questions are truly actionable in practice?
+Thank you for joining me for this workshop.
