@@ -88,17 +88,17 @@ Characteristics of DCM include:
 
 -   Item responses can then be used to place players into groups based on their status as proficient or non-proficient on the multiple attributes:
 
-+-------------+----------------+----------------+----------------+----------------+
-| Player      | Technique      | Endurance      | Agility        | Strategy       |
-+=============+:==============:+:==============:+:==============:+:==============:+
-| Christie    | Non-proficient | Non-proficient | Non-proficient | Non-proficient |
-+-------------+----------------+----------------+----------------+----------------+
-| Liam        | Non-proficient | Proficient     | Non-proficient | Non-proficient |
-+-------------+----------------+----------------+----------------+----------------+
-| Eunice      | Proficient     | Proficient     | Proficient     | Proficient     |
-+-------------+----------------+----------------+----------------+----------------+
-| Serena      | Proficient     | Proficient     | Proficient     | Proficient     |
-+-------------+----------------+----------------+----------------+----------------+
++------------+----------------+----------------+----------------+----------------+
+| Player     | Technique      | Endurance      | Agility        | Strategy       |
++============+:==============:+:==============:+:==============:+:==============:+
+| Christie   | Non-proficient | Non-proficient | Non-proficient | Non-proficient |
++------------+----------------+----------------+----------------+----------------+
+| Liam       | Non-proficient | Proficient     | Non-proficient | Non-proficient |
++------------+----------------+----------------+----------------+----------------+
+| Eunice     | Proficient     | Proficient     | Proficient     | Proficient     |
++------------+----------------+----------------+----------------+----------------+
+| Serena     | Proficient     | Proficient     | Proficient     | Proficient     |
++------------+----------------+----------------+----------------+----------------+
 
 -   We now have a better sense of the skills different players have mastered. We see Liam is lower than Eunice because he isn't proficient in Technique or Strategy yet, and Christie hasn't become proficient in anything yet.
 
@@ -157,25 +157,39 @@ While a diagnostic classification model with 2 attributes would look like: ![](f
 
 Several resources have provided thorough descriptions of DCM models [@carragher2019; @ma2019; @ravand2020]. They describe each model as having certain conceptual properties:
 
-| Model     | Attribute Assumption                         | Specific vs General |
-|-----------|----------------------------------------------|---------------------|
-| DINA      | Non-Compensatory                             | Specific            |
-| DINO      | Compensatory                                 | Specific            |
-| A-CDM     | Additive                                     | Specific            |
-| LLM/C-RUM | Additive                                     | Specific            |
-| R-RUM     | Additive                                     | Specific            |
-| G-DINA    | Compensatory, Non-Compensatory, and Additive | General             |
++---------------+----------------------------------------------+---------------------+
+| Model         | Attribute Assumption                         | Specific vs General |
++===============+==============================================+=====================+
+| DINA          | Non-Compensatory                             | Specific            |
++---------------+----------------------------------------------+---------------------+
+| DINO          | Compensatory                                 | Specific            |
++---------------+----------------------------------------------+---------------------+
+| A-CDM         | Additive                                     | Specific            |
++---------------+----------------------------------------------+---------------------+
+| LLM/C-RUM     | Additive                                     | Specific            |
++---------------+----------------------------------------------+---------------------+
+| R-RUM         | Additive                                     | Specific            |
++---------------+----------------------------------------------+---------------------+
+| G-DINA        | Compensatory, Non-Compensatory, and Additive | General             |
++---------------+----------------------------------------------+---------------------+
 
 Each of these models also has statistical properties:
 
-| Model     | Link Function |             Outcome              | Parameters Estimated                                       |
-|-----------|:-------------:|:--------------------------------:|------------------------------------------------------------|
-| DINA      | Identity Link |       Response Probability       | intercept (guessing), highest-order interaction (slipping) |
-| DINO      | Identity Link |       Response Probability       | intercept (guessing), single main effect (slipping)        |
-| A-CDM     | Identity Link |       Response Probability       | intercept, main effects                                    |
-| LLM/C-RUM |  Logit Link   | Log-odds of Response Probability | intercept, main effects                                    |
-| R-RUM     |   Log Link    |   Log of Response Probability    | intercept, main effects                                    |
-| G-DINA    | All as needed |              Varies              | intercept, main effects, all interactions                  |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| Model     | Link Function | Outcome                          | Parameters Estimated                                       |
++===========+:=============:+:================================:+============================================================+
+| DINA      | Identity Link | Response Probability             | intercept (guessing), highest-order interaction (slipping) |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| DINO      | Identity Link | Response Probability             | intercept (guessing), single main effect (slipping)        |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| A-CDM     | Identity Link | Response Probability             | intercept, main effects                                    |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| LLM/C-RUM | Logit Link    | Log-odds of Response Probability | intercept, main effects                                    |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| R-RUM     | Log Link      | Log of Response Probability      | intercept, main effects                                    |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
+| G-DINA    | All as needed | Varies                           | intercept, main effects, all interactions                  |
++-----------+---------------+----------------------------------+------------------------------------------------------------+
 
 #### Plots of Restricted DCM models
 
@@ -250,15 +264,15 @@ George and Robitzsch (@george2015) provide the following example item from the E
 
 The following table---reprinted from (@george2015 p. 191)\--provides a description of the three attributes in the current dataset:
 
-+---------------------+-----------------------+----------------------------------------------------------------------------------------------+
-| Attribute Parameter | Attribute Name        | Attribute Description                                                                        |
-+=====================+:=====================:+:============================================================================================:+
-| α1                  | morphosyntactic rules | word formation; combination of words into larger units such as phrases and sentences         |
-+---------------------+-----------------------+----------------------------------------------------------------------------------------------+
-| α2                  | cohesive rules        | grammatical and lexical linking within a text or sentence                                    |
-+---------------------+-----------------------+----------------------------------------------------------------------------------------------+
-| α3                  | lexical rules         | modification of argument structures of lexical text elements (i. e., verbs and declensions)  |
-+---------------------+-----------------------+----------------------------------------------------------------------------------------------+
++---------------------+-----------------------+---------------------------------------------------------------------------------------------+
+| Attribute Parameter | Attribute Name        | Attribute Description                                                                       |
++=====================+:=====================:+:===========================================================================================:+
+| α1                  | morphosyntactic rules | word formation; combination of words into larger units such as phrases and sentences        |
++---------------------+-----------------------+---------------------------------------------------------------------------------------------+
+| α2                  | cohesive rules        | grammatical and lexical linking within a text or sentence                                   |
++---------------------+-----------------------+---------------------------------------------------------------------------------------------+
+| α3                  | lexical rules         | modification of argument structures of lexical text elements (i. e., verbs and declensions) |
++---------------------+-----------------------+---------------------------------------------------------------------------------------------+
 
 ### Install Dependencies
 
@@ -465,7 +479,7 @@ ecpe_est2 <- GDINA::GDINA(ecpe_df, ecpe_q_empirical, mono.constraint = TRUE)
 anova(ecpe_est2,ecpe_est)
 ```
 
-This is a very close decision. BIC and AIC differ, and the p-value is so close as to .05 to be unhelpful. Given the concordance between BIC and the p-value, let's keep the more parsimonious model.
+We can compare the AIC, BIC, and wald test or LRT to choose the best model.
 
 ### Step 2: Model Calibration
 
@@ -519,11 +533,19 @@ anova(ecpe_est3, ecpe_est2)
 
 The more parsimonious DCM with item-specific DCM measurement models fits the data as well as the fully saturated DCM.
 
+#### Model Calibration Miscellaneous Information
+
+[@ravand2020] provides a more detailed description of the Wald process of model calibration:
+
+> the Wald statistic for the reduced models for individual items is calculated. The null hypotheses are the fit of the reduced model equals the fit of the general model. If the null hypothesis is rejected (p \<.05) the reduced model is rejected. If more than one reduced models are retained and the DINA or DINO are among the retained models, the DINA or DINO with the largest p value are selected, but if the DINA and DINO are not among the retained models, the reduced model with the largest p value is selected (p. 45).
+
 As a brief aside, I believe the Log-Linear CDM as a general model may make this process a little easier. If type I error rate is adequately controlled for, we can simply check the parameter estimates and associated p-values of the main effects and interaction effects. One can accomplish this with the CDM package, among others.
 
 Why ensure model parsimony where possible? Sen and Cohen (2020) describe:
 
 > "More complex DCMs require larger sample sizes to yield accurate estimates and more reduced DCMs can usually be estimated accurately with smaller sample sizes. Reduced models also typically provide for more straightforward interpretations and higher correct classification rates than more saturated models, particularly when the sample sizes are small." [@sen2021, p. 2]
+
+Note we relied on reliative fit indices in model calibration as absolute fit indices are not suitable for model or Q-matrix selection for model comparison purposes[@ravand2020].
 
 ### Step 3: Assess Model-Data Fit
 
@@ -531,51 +553,55 @@ One the empirical q-matrix and DCM measurement models have been selected, model 
 
 As described by [@shi2021], the `GDINA` R package has several options for investigating model fit:
 
-+---------------+-----------------+------------------------------+---------------------------------------+
-| Type of fit   | Level of fit    | Function                     | Statistics Provided                   |
-+===============+:===============:+:============================:+:=====================================:+
-| Absolute      | test level      | `modelfit()` and `itemfit()` | M2, RMSEA2, SRMSR, MaxAD.r, MaxAD.LOR |
-+---------------+-----------------+------------------------------+---------------------------------------+
-| Relative      | test level      | `modelfit()` and `anova()`   | AIC, BIC, CAIC, SABIC, LR test        |
-+---------------+-----------------+------------------------------+---------------------------------------+
-| Absolute      | item level      | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
-+---------------+-----------------+------------------------------+---------------------------------------+
-| Absolute      | item-pair level | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
-+---------------+-----------------+------------------------------+---------------------------------------+
-| Relative      | item level      | `modelcomp()`                | Wald test, LR test                    |
-+---------------+-----------------+------------------------------+---------------------------------------+
++-------------+-----------------+------------------------------+---------------------------------------+
+| Type of fit | Level of fit    | Function                     | Statistics Provided                   |
++=============+:===============:+:============================:+:=====================================:+
+| Absolute    | test level      | `modelfit()` and `itemfit()` | M2, RMSEA2, SRMSR, MaxAD.r, MaxAD.LOR |
++-------------+-----------------+------------------------------+---------------------------------------+
+| Relative    | test level      | `modelfit()` and `anova()`   | AIC, BIC, CAIC, SABIC, LR test        |
++-------------+-----------------+------------------------------+---------------------------------------+
+| Absolute    | item level      | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
++-------------+-----------------+------------------------------+---------------------------------------+
+| Absolute    | item-pair level | `itemfit()`                  | MaxAD.r, MaxAD.LOR                    |
++-------------+-----------------+------------------------------+---------------------------------------+
+| Relative    | item level      | `modelcomp()`                | Wald test, LR test                    |
++-------------+-----------------+------------------------------+---------------------------------------+
 
 #### Investigating test-level fit
 
-There are a variety of statistics to assess test-level absolute fit. The table below provides a brief summary of interpretation.
+There are a variety of statistics to assess test-level absolute fit. The table below provides a brief summary of interpretation as articulated by [@shi2021].
 
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Statistic     | Good Fit Cutpoint                                                                           | Description/Context                                                                                                                                                  |
-+===============+=============================================================================================+======================================================================================================================================================================+
-| M2            | `P > .05`: good fit.                                                                        | Compare bi/univariate distributions of observations to model predictions. Similar to chi-square in SEM. Like chi-square, often overpowered and thus not informative. |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | A significant value indicates model predictions significantly depart from the observed data |                                                                                                                                                                      |
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| RMSEA2        | `< .03`: excellent fit                                                                      | Limited-information RMSEA. Can be used as an effect size measure                                                                                                     |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | `.03 - .045`: good fit                                                                      |                                                                                                                                                                      |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | `> .045`: poor fit                                                                          |                                                                                                                                                                      |
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| SRMSR         | `< .05`: good fit                                                                           | Standardized root mean square residual. Can be used as an effect size measure                                                                                        |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | `> .05`: poor fit                                                                           |                                                                                                                                                                      |
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| MaxAD.r       | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted Fisher transformed correlations (MaxAD.r). Aggregated item-level fit.                                 |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| MaxAD.LOR     | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted log odds ratios (MaxAD.LOR). Aggregated item-level fit.                                               |
-|               |                                                                                             |                                                                                                                                                                      |
-|               | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
-+---------------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Statistic | Good Fit Cutpoint                                                                           | Description/Context                                                                                                                                                  |
++===========+=============================================================================================+======================================================================================================================================================================+
+| M2        | `P > .05`: good fit.                                                                        | Compare bi/univariate distributions of observations to model predictions. Similar to chi-square in SEM. Like chi-square, often overpowered and thus not informative. |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | A significant value indicates model predictions significantly depart from the observed data |                                                                                                                                                                      |
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| RMSEA2    | `< .03`: excellent fit                                                                      | Limited-information RMSEA. Can be used as an effect size measure                                                                                                     |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | `.03 - .045`: good fit                                                                      |                                                                                                                                                                      |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | `> .045`: poor fit                                                                          |                                                                                                                                                                      |
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| SRMSR     | `< .05`: good fit                                                                           | Standardized root mean square residual. Can be used as an effect size measure                                                                                        |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | `> .05`: poor fit                                                                           |                                                                                                                                                                      |
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| MaxAD.r   | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted Fisher transformed correlations (MaxAD.r). Item-level fit & aggregated.                               |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| MaxAD.LOR | `adj p > .05`: good fit                                                                     | The maximum absolute difference between observed and predicted log odds ratios (MaxAD.LOR). Aggregated item-level fit.                                               |
+|           |                                                                                             |                                                                                                                                                                      |
+|           | Estimates closer to 0: good fit                                                             | Investigates to what extent the model can explain the association between each pair of items.                                                                        |
++-----------+---------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-== note to self: find a way to save and access the results better for this below==
+[@ravand2020] provides additional descriptions of model fit:
+
+-   RMSEA: "root mean square error (RMSEA) is the mean difference between response proportions predicted by the model and those observed for each response category within each latent class weighted by the proportion of the test takers within the respective latent class."
+-   SRMR: "standardized root mean squared residual (SRMSR) is a fit index borrowed from factor analysis. For any item pair, SRMSR is the observed correlation between the items minus the expected correlation"
+-   Mean absolute distance for item-pair correlations: "mean absolute difference for the item-pair correlations (MADcor) statistic (DiBello et al., 2007) is also a measure of \[local dependence\], which is averaged across all the item correlation residuals: the difference between the observed and the model-predicted item correlations."
 
 ```{r}
 #extract the test-level model data fit using the modelfit function, then print results:
@@ -990,6 +1016,10 @@ All the plots and results thus far have been useful for us, but not publication-
 
 R data visualization is a workshop all on its own, so we'll avoid that for today.
 
+```{r}
+
+```
+
 ## Wrap-Up
 
 ### Summary
@@ -1019,15 +1049,26 @@ In this workshop, we discussed the following:
 -   Hierarchical DCMs: Imposing structure on the attributes such that one attribute (e.g, multiplication) can be only mastered after mastery of another (e.g., addition)
 -   Polytomous DCMs: Latent attributes with more than two states (2 states: non-proficient vs proficient; 3 states: beginner vs intermediate vs advanced)
 -   DIF in DCM: Investigating differential item functioning within the DCM context. See `GDINA::dif()` function.
+-   
 
 ### Further Reading
 
 Wenchao Ma has a helpful [DCM reading list](https://dfcf59c426e6c585878c-4903f3efef28792726cbdc916f3a80da.ssl.cf2.rackcdn.com/ncme_dee9872123eaab4097da156c7d7b6148.pdf)
 
+#### DCM Sample size
+
+**Person sample size**
+
+DCM requires substantial sample sizes. More attributes and more interaction effects requires larger sample sizes. [@ravand2020] references simulation studies suggesting even with a sample size of 1000, items with 1-2 attributes will have unreliable 2-way interaction effects. 3-way interactions are often unreliably estimated even with a sample size of 10,000. Sample size also has the largest impact on accurate q-matrix validation and model calibration.
+
+**Item sample size**
+
+"Hartz (2002) recommended at least three items for any given attribute. However, Jang (2009) suggested at least five items per attribute." [@ravand2020 p. 47]
+
 ### Homework Activities
 
 [@ma2019] has a great list of homework activities to solidify your understanding.
 
-### Congratulations! 
+### Congratulations!
 
 Thank you for joining me for this workshop.
